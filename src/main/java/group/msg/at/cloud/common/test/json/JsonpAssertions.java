@@ -71,7 +71,7 @@ public class JsonpAssertions {
         JsonPointer pointer = Json.createPointer(jsonPointer);
         if (pointer.containsValue(underTest)) {
             String text = asString(pointer, underTest);
-            Assertions.assertTrue(!expected.equals(text), String.format("Expected value [%s] at [%s] not to be equal to [%s]", text, jsonPointer, expected));
+            Assertions.assertFalse(expected.equals(text), String.format("Expected value [%s] at [%s] not to be equal to [%s]", text, jsonPointer, expected));
         }
     }
 
