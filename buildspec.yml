@@ -2,8 +2,9 @@ version: 0.2
 
 env:
   secrets-manager:
-    DOCKERHUB_USER: "cloudtrain-codebuild-dockerhub:docker-user"
-    DOCKERHUB_PAT: "cloudtrain-codebuild-dockerhub:docker-pat"
+    NEXUS_USER: "cloudtrain-codebuild-nexus:user"
+    NEXUS_PASSWORD: "cloudtrain-codebuild-nexus:password"
+    SONARQUBE_TOKEN: "cloudtrain-codebuild-sonarqube:token"
 
 phases:
   install:
@@ -19,7 +20,7 @@ phases:
     commands:
       - echo "Running phase build"
       - echo Running commit-stage of the build
-      - mvn clean deploy --batch-mode --fail-fast --errors -V -U -Dsurefire.useFile=false -DskipTests=true
+      - mvn clean deploy --batch-mode --fail-fast --errors -V -U -Dsurefire.useFile=false -Dsonar.login=$SONARQUBE_TOKEN
   post_build:
     commands:
       - echo "Running phase post_build"
